@@ -1,6 +1,6 @@
 // RSM Switzerland AG
 // Reto Buchli
-// 08.04.2020
+// 06.05.2020
 var namespace = function (identifier) {
     var klasses = arguments[1] || false;
     var ns = window;

@@ -15,11 +15,11 @@
 	limitations under the License.
  */
 
-@font-face
-{font-family: 'Noto Sans';
-    src: url('/share/rsm-login-reset-aio-share/components/themes/RSMCustomTheme/fonts/noto/NotoSansDisplay-Regular.ttf')
-    format('truetype');
-}
+/*@font-face*/
+/*{font-family: 'Noto Sans';*/
+/*    src: url('/share/rsm-login-reset-aio-share/components/themes/RSMCustomTheme/fonts/noto/NotoSansDisplay-Regular.ttf')*/
+/*    format('truetype');*/
+/*}*/
 
 html, body {
     font-family: 'Noto Sans', sans-serif;
@@ -53,7 +53,6 @@ body {
        flex-direction: column; */
     /*   background-color: #fff; */
     background-color: #0c79bf;
-    background-image: url(/share/rsm-login-reset-aio-share/components/themes/RSMCustomTheme/images/background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -107,3 +106,8 @@ select:focus {
      width:  50%;
      vertical-align: middle;
  }
+
+.right {
+    text-align: right;
+    float: right;
+}

@@ -7,14 +7,12 @@ to reset a password.
 * Suitable for internal users. Does not work for AD users - Alfresco can't write to Active Directory.
 * Works for Alfresco 6.0 and 6.2 (tested). Other accessible plugins only work until 6.0.
 
+Version 1.0.0, 08.05.2020
+
 Created by RSM Switzerland AG, 2020
 
 ### Todo:
 * Now the user has to enter the username together with the password. Read username from Task. How?
-* Get rid of [object HTMLDivElement] message after sucessfully changing password
-* Check security
-* Tests
-* Beautify email templates (see below)
 
 ### Dependencies
 
@@ -77,8 +75,3 @@ All the services of the project are now run as docker containers. The run script
  * Integration tests module to execute tests against the final environment (dockerised)
  * Resources loaded from META-INF
  * Web Fragment (this includes a sample servlet configured via web fragment)
-
-#### TODO
-
-  * Abstract assembly into a dependency so we don't have to ship the assembly in the archetype
-  * Functional/remote unit tests

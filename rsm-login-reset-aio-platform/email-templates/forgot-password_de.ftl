@@ -93,8 +93,8 @@
 
         table {
             border-collapse: collapse;
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
+            mso-table-lspace: 0;
+            mso-table-rspace: 0;
         }
 
         #outlook a {

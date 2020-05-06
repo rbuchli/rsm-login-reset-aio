@@ -3,9 +3,9 @@
 
 <head>
     <title>Alfresco - ${msg("resetPage.pageTitle")}</title>
-    <comment>
-        RSM Switzerland AG
-    </comment>
+    <#--    <comment>-->
+    <#--        RSM Switzerland AG-->
+    <#--    </comment>-->
 
     <link rel="stylesheet" type="text/css" href="/share/rsm-login-reset-aio-share/components/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/share/rsm-login-reset-aio-share/components/main.css">
@@ -46,18 +46,18 @@
 
 <body ng-app="pwdapp">
 
-<header>
-    <div class="navbar-fixed">
-        <nav class="grey lighten-4">
-            <div class="container">
-                <div class="nav-wrapper">
-                    <a class="right hide-on-med-and-down grey-text text-darken-4" href="https://files.rsmch.ch">
-                        Alfresco </a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+<#--<header>-->
+<#--    <div class="navbar-fixed">-->
+<#--        <nav class="grey lighten-4">-->
+<#--            <div class="container">-->
+<#--                <div class="nav-wrapper">-->
+<#--                    <a class="right hide-on-med-and-down grey-text text-darken-4" href="https://files.rsmch.ch">-->
+<#--                        Alfresco </a>-->
+<#--                </div>-->
+<#--            </div>-->
+<#--        </nav>-->
+<#--    </div>-->
+<#--</header>-->
 
 <main>
     <div class="container">
@@ -83,12 +83,12 @@
                             </a>
                         </div>
                         <form id="form-reset">
-<#--                            <div class="row">-->
-<#--                                <div class="input-field col s12">-->
-<#--                                    <label for="username">${msg("resetPage.usernameLabel")}</label>-->
-<#--                                    <input id="username" name="username" required type="text">-->
-<#--                                </div>-->
-<#--                            </div>-->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="username">${msg("resetPage.usernameLabel")}</label>
+                                    <input id="username" name="username" required type="text">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div ng-controller="PasswordController">
                                     <p>${msg("resetPage.newpassLabel")}</p>
@@ -112,23 +112,29 @@
                                     <input id="confirm-password" name="confirm-password" required type="password">
                                 </div>
                             </div>
-                            <button id="form-btn" class="btn waves-effect waves-light disabled" disabled type="submit">
-                                ${msg("resetPage.submitButton")}
-                            </button>
-                            <div class="row"></div>
+
+                            <#--                            <div class="row"></div>-->
+                            <div class="card-action">
+                                <button id="form-btn" class="btn waves-effect waves-light disabled" disabled
+                                        type="submit">
+                                    ${msg("resetPage.submitButton")}
+                                </button>
+                                <div class="right">
+                                    <a href="/share/" class="waves-effect btn grey lighten-5 grey-text text-darken-4"
+                                       type="button"
+                                       id="action">
+                                        ${msg("resetPage.backtologinButton")}
+                                    </a>
+                                </div>
+                            </div>
                         </form>
                         <div id="loading" class="progress blue lighten-1" style="display:none;">
                             <div class="indeterminate blue lighten-4"></div>
                         </div>
-                        <p class="flow-text" id="form-result"></p>
+                        <div class="text" id="form-result"></div>
                         <div id="error" class="orange-text text-darken-4"></div>
                     </div>
-                    <div class="card-action">
-                        <a href="/share/" class="waves-effect btn grey lighten-5 grey-text text-darken-4" type="submit"
-                           id="action">
-                            ${msg("resetPage.backtologinButton")}
-                        </a>
-                    </div>
+                    <!-- -->
                 </div>
             </div>
         </div>
@@ -156,24 +162,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col l4 offset-l2 s12 grey-text text-darken-4">
-                <h5>Links</h5>
-                <p>
-                    <a class="blue-text" href="http://docs.alfresco.com/" target="_blank">
-                        Online Documentation
-                    </a>
-                </p>
-                <p>
-                    <a class="blue-text" href="http://www.rsm.global/Switzerland" target="_blank">
-                        RSM Switzerland
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright grey lighten-2">
-        <div class="container">
-            <div class="clearfix"></div>
         </div>
     </div>
 </footer>
@@ -181,12 +169,12 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/share/rsm-login-reset-aio-share/components/materialize.min.js"></script>
 <script>
-    function getErrorMessage(xhr, error) {
+    function getErrorMessage(xhr) {
         try {
-            const response = JSON.parse(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
             return response.message;
         } catch (e) {
-            return error;
+            return "Does not work. Reason: " + xhr.status;
         }
     }
 
@@ -194,6 +182,8 @@
 
         let key = getUrlParameter('key');
         let activitiId = getUrlParameter('id');
+
+        let $confirmPassword = $('#confirm-password');
 
         $('.modal-trigger').leanModal({
             dismissible: true,
@@ -206,18 +196,23 @@
         });
 
         $('#form-reset').submit(function (event) {
+
+            let formBtn = $('#form-btn');
+
             event.preventDefault();
             emptyDiv('#form-result');
             emptyDiv('#error');
             $('#loading').show();
             //       $('#user option').removeAttr('disabled');
-            $('#form-btn').attr('disabled', 'disabled');
-            $('#form-btn').removeClass('blue');
-            $('#form-btn').addClass('disabled');
+            formBtn.attr('disabled', 'disabled');
+            formBtn.removeClass('blue');
+            formBtn.addClass('disabled');
 
-//            let username = $('#username').val();
-            let user = com.activiti.security.SecurityUtils.getCurrentUserObject();
-            let username = user.getUserName;
+            let username = $('#username').val();
+
+//            let email = people.getPerson(username).getEmail();
+//            let user = com.activiti.security.SecurityUtils.getCurrentUserObject();
+//            let username = user.getUserName;
             let pwd = $('#password').val();
             $.ajax({
                 type: "POST",
@@ -230,38 +225,41 @@
                     //       $('#user option').attr('disabled', 'disabled');
                     $('#form-result').text('${msg("resetPage.passwordUpdated")}');
                 },
-                error: function (xhr, status, $error) {
+                error: function (xhr, status, error) {
                     $('#loading').hide();
                     //       $('#user option').attr('disabled', 'disabled');
-                    $('#form-btn').removeAttr('disabled');
-                    $('#form-btn').addClass('blue');
-                    $('#form-btn').removeClass('disabled');
-                    $('#error').text(getErrorMessage(xhr, error));
+                    formBtn.removeAttr('disabled');
+                    formBtn.addClass('blue');
+                    formBtn.removeClass('disabled');
+                    $('#error').text(getErrorMessage(xhr));
                 }
             });
         });
 
         function checkPass() {
 
+
             let pwd = $('#password').val();
-            let pwd2 = $('#confirm-password').val();
+            let pwd2 = $confirmPassword.val();
             let strengthField = document.getElementById('pwStrength');
+            let formBtn = $('#form-btn');
+
             //if (!$('#username').is(':disabled')) {
             if ((pwd === pwd2) && strengthField.style.backgroundColor !== "red") {
                 emptyDiv('#error');
-                $('#form-btn').addClass('blue');
-                $('#form-btn').removeClass('disabled');
-                $('#form-btn').removeAttr('disabled');
+                formBtn.addClass('blue');
+                formBtn.removeClass('disabled');
+                formBtn.removeAttr('disabled');
             } else {
-                $('#form-btn').attr('disabled', 'disabled');
-                $('#form-btn').removeClass('blue');
-                $('#form-btn').addClass('disabled');
+                formBtn.attr('disabled', 'disabled');
+                formBtn.removeClass('blue');
+                formBtn.addClass('disabled');
                 $('#error').text('${msg("resetPage.passwordMismatch")}');
             }
             //}
         }
 
-        $('#confirm-password').keyup(function () {
+        $confirmPassword.keyup(function () {
             checkPass();
             return false;
         });
