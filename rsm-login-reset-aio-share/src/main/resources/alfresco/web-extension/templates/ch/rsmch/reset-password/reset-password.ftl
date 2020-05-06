@@ -174,7 +174,12 @@
             let response = JSON.parse(xhr.responseText);
             return response.message;
         } catch (e) {
-            return "Does not work. Reason: " + xhr.status;
+            let result = xhr.status;
+            if (result === 202) {
+                return "";
+            } else {
+                return "Does not work. Reason: " + xhr.status;
+            }
         }
     }
 
