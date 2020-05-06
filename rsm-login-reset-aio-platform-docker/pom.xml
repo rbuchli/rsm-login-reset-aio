@@ -20,12 +20,12 @@
         <dependency>
             <groupId>ch.rsmch</groupId>
             <artifactId>rsm-login-reset-aio-platform</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>ch.rsmch</groupId>
             <artifactId>rsm-login-reset-aio-integration-tests</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
